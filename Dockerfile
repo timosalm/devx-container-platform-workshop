@@ -11,8 +11,8 @@ gpgcheck=1 \n\
 repo_gpgcheck=1 \n\
 gpgkey=https://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub ' >> /etc/yum.repos.d/tanzu-cli.repo
 
-RUN sudo yum install -y tanzu-cli # If you are using DNF, run sudo dnf install -y tanzu-cli.
-RUN tanzu plugin install --group vmware-tap/default:v1.6.2
+RUN sudo yum install -y tanzu-cli
+RUN yes | tanzu plugin install --group vmware-tap/default:v1.6.2
 
 RUN yum install moreutils wget -y
 
