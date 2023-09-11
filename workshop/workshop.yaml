@@ -1,0 +1,7 @@
+name: Closing the Developer Experience Gap of Your Container Platforms
+
+modules:
+    activate:
+    - workshop-overview
+    - exercises/intro
+    - workshop-summary

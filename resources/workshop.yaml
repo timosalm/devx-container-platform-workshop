@@ -1,0 +1,39 @@
+apiVersion: training.educates.dev/v1beta1
+kind: Workshop
+metadata:
+  name: devx-container-platform-workshop
+spec:
+  title: Closing the Developer Experience Gap of Your Container Platforms
+  description: A workshop that demonstrates how get started in building an application-aware platform that abstracts away all infrastructure specifics and fosters developer productivity.
+  workshop:
+    image: ghcr.io/timosalm/devx-container-platform-workshop:main 
+    files:
+    - git:
+        url: https://github.com/timosalm/devx-container-platform-workshop
+        ref: origin/main
+      includePaths:
+      - /workshop/**
+  session:
+    resources:
+      memory: 1Gi
+    namespaces:
+      budget: custom
+      security:
+        policy: baseline
+    applications:
+      console:
+        enabled: false
+      editor:
+        enabled: true
+      terminal:
+        enabled: true
+        layout: split
+      docker:
+        enabled: true
+        storage: 1Gi
+      registry:
+        enabled: true
+    ingresses:
+    - name: cloud-native-app
+      host: cloud-native-app.$(session_namespace)
+      port: 8080

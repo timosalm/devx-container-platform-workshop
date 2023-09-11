@@ -1,0 +1,14 @@
+apiVersion: training.educates.dev/v1beta1
+kind: TrainingPortal
+metadata:
+  name: devx-container-platform-workshop
+spec:
+  portal:
+    updates:
+      workshop: true
+  workshops:
+  - name: devx-container-platform-workshop
+    capacity: 30
+    expires: 3h
+    orphaned: 30m
+    reserved: 0
