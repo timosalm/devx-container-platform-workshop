@@ -2,13 +2,16 @@ FROM ghcr.io/vmware-tanzu-labs/educates-jdk17-environment:2.5.2
 
 USER root
 
-RUN mkdir -p /etc/apt/keyrings/
-RUN apt-get update
-RUN apt-get install -y ca-certificates curl gpg
-RUN curl -fsSL https://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub | sudo gpg --dearmor -o /etc/apt/keyrings/tanzu-archive-keyring.gpg
-RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/tanzu-archive-keyring.gpg] https://storage.googleapis.com/tanzu-cli-os-packages/apt tanzu-cli-jessie main" | sudo tee /etc/apt/sources.list.d/tanzu.list
-RUN apt-get update
-RUN apt-get install -y tanzu-cli
+RUN echo $' \n\
+[tanzu-cli] \n\
+name=Tanzu CLI \n\
+baseurl=https://storage.googleapis.com/tanzu-cli-os-packages/rpm/tanzu-cli \n\
+enabled=1 \n\
+gpgcheck=1 \n\
+repo_gpgcheck=1 \n\
+gpgkey=https://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub ' >> /etc/yum.repos.d/tanzu-cli.repo
+
+RUN sudo yum install -y tanzu-cli # If you are using DNF, run sudo dnf install -y tanzu-cli.
 RUN tanzu plugin install --group vmware-tap/default:v1.6.2
 
 RUN yum install moreutils wget -y
