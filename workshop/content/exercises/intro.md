@@ -1,4 +1,4 @@
-Before we dig into technology, let’s see why you need them.
+Before we dig into technology, let's see why you need them.
 
 The **traditional software deployment process was really like the illustration**. 
 
