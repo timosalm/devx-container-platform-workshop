@@ -16,6 +16,7 @@ spec:
   session:
     namespaces:
       budget: custom
+      role: view
       security:
         policy: restricted
     applications:
