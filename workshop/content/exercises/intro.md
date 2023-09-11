@@ -39,7 +39,7 @@ And once developers learned them, they still must spend a lot of time maintainin
 
 As with the traditional software deployment process illustrated below, **developers today shouldn't have to care where and how their applications are running** and focus on adding business value by implementing new features.
 
-![Removing the burden from the developers with an app-aware platform](../images/app-aware.png)
+[Removing the burden from the developers with an app-aware platform](../images/app-aware.png)
 
 The idea of an **application-aware platform is to abstract away all those platform and infrastructure specifics** and give the developers an interface where they only have to define the requirements of the applications they want to deploy on the platform. 
 The platform for example, then automatically builds a container image and applies platform best practices for the deployment. 

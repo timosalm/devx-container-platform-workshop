@@ -17,7 +17,7 @@ spec:
     namespaces:
       budget: custom
       security:
-        policy: baseline
+        policy: restricted
     applications:
       console:
         enabled: false
