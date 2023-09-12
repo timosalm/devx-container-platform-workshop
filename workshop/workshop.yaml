@@ -5,4 +5,8 @@ modules:
     - workshop-overview
     - exercises/intro
     - exercises/buildpacks
+    - exercises/knative
+    - exercises/cartographer
+    - exercises/crossplane
+    - exercises/backstage
     - workshop-summary
