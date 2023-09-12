@@ -100,8 +100,8 @@ command: kubectl get image.kpack.io,kservice
 clear: true
 ```
 
-Finally, we can send a request to the application after deployment is ready to serve traffic.
+Finally, we can test the deployment by clicking on the output of the following command after the deployment is ready to serve traffic.
 ```terminal:execute
-command: curl -L $(kn service describe inclusion-cartographer -o url)
+command: kn service describe inclusion-wkld -o url
 clear: true
 ```

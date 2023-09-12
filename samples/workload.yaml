@@ -1,7 +1,7 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: inclusion-cartographer
+  name: inclusion-wkld
   annotations:
     autoscaling.knative.dev/min-scale: "1"
   labels:
