@@ -36,7 +36,7 @@ clear: true
 Let's now create an Image resource for our demo application by specifying the Git repository containing the source code and the container image tag.
 ```terminal:execute
 command: |
-  kp image create inclusion --git https://github.com/timosalm/emoji-inclusion --tag harbor.{{ ENV_TAP_INGRESS }}/tap-workshop-examples/inclusion-{{ session_namespace }}
+  kp image create inclusion --git https://github.com/timosalm/emoji-inclusion --tag harbor.{{ ENV_TAP_INGRESS }}/tap-workshop-examples/inclusion-{{ session_namespace }} --env BP_JVM_VERSION=17
 clear: false
 ```
 
@@ -51,7 +51,7 @@ command: kp clusterbuilder list
 clear: true
 ```
 ```terminal:execute
-command: kp clusterbuilder status full
+command: kp clusterbuilder status default
 clear: true
 ```
 In addition to to the cluster scoped Builder resource, there is also a namespace scoped equivalent available.

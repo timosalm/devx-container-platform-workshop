@@ -9,6 +9,6 @@ spec:
   workshops:
   - name: devx-container-platform-workshop
     capacity: 30
-    expires: 3h
+    expires: 4h
     orphaned: 30m
     reserved: 0
