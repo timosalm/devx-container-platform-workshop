@@ -1,0 +1,19 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: inclusion-cartographer
+  annotations:
+    autoscaling.knative.dev/min-scale: "1"
+  labels:
+    app.kubernetes.io/part-of: inclusion
+    devx-container-platform-workshop/workload-type: web
+spec:
+  source:
+    git:
+      url: https://github.com/timosalm/emoji-inclusion.git
+      ref:
+        branch: main
+  build:
+    env:
+      - name: BP_JVM_VERSION
+        value: "17"

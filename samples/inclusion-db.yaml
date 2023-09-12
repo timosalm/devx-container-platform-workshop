@@ -1,0 +1,12 @@
+apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
+kind: XPostgreSQLInstance
+metadata:
+  name: inclusion-db
+spec:
+  compositionRef:
+    name: xpostgresqlinstances.bitnami.database.tanzu.vmware.com
+  compositionSelector:
+    matchLabels:
+      provider: bitnami
+      type: postgresql
+  storageGB: 1

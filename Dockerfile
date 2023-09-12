@@ -43,6 +43,9 @@ RUN kubectl krew install eksporter
 RUN chmod 775 -R $HOME/.krew
 RUN yum install ruby -y
 
+RUN curl -L -o /usr/local/bin/hey https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64 && \
+    chmod 755 /usr/local/bin/hey
+
 USER 1001
 
 RUN fix-permissions /home/eduk8s

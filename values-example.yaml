@@ -1,0 +1,4 @@
+#@data/values
+---
+tap:
+  ingress_domain: tap.example.com
