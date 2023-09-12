@@ -41,7 +41,7 @@ ENV KUBECTL_VERSION=1.25
 RUN kubectl krew install tree
 RUN kubectl krew install eksporter
 RUN chmod 775 -R $HOME/.krew
-RUN yum install ruby
+RUN yum install ruby -y
 
 USER 1001
 
