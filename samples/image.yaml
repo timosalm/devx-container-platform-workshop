@@ -1,0 +1,19 @@
+apiVersion: kpack.io/v1alpha2
+kind: Image
+metadata:
+  labels:
+    app.kubernetes.io/part-of: inclusion
+  name: inclusion
+spec:
+  build:
+    env:
+    - name: BP_JVM_VERSION
+      value: "17"
+  builder:
+    kind: ClusterBuilder
+    name: default
+  source:
+    blob:
+      url: http://fluxcd-source-controller.flux-system.svc.cluster.local./gitrepository/dev-space/inclusion/3c3055c71d225fee122d9c696f59d24d0b813ee2.tar.gz
+  successBuildHistoryLimit: 10
+  tag: harbor.emea.end2end.link/tap/workloads/inclusion-dev-space
