@@ -10,9 +10,12 @@ enabled=1 \n\
 gpgcheck=1 \n\
 repo_gpgcheck=1 \n\
 gpgkey=https://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub ' >> /etc/yum.repos.d/tanzu-cli.repo
-
 RUN sudo yum install -y tanzu-cli
 RUN yes | tanzu plugin install --group vmware-tap/default:v1.6.2
+RUN chown -R eduk8s:users /home/eduk8s/.cache
+RUN chown -R eduk8s:users /home/eduk8s/.local
+RUN chown -R eduk8s:users /home/eduk8s/.config
+
 
 RUN yum install moreutils wget -y
 
