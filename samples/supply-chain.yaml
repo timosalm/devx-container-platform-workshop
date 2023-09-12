@@ -1,0 +1,91 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterSupplyChain
+metadata:
+  name: devx-container-platform-workshop
+spec:
+  resources:
+  - name: image-builder
+    params:
+    - name: registry
+      value:
+        repository: tap-workshop-examples
+        server: harbor.main.emea.end2end.link
+    templateRef:
+      kind: ClusterImageTemplate
+      name: devx-container-platform-workshop-image-template
+  - images:
+    - name: image
+      resource: image-builder
+    name: app-deploy
+    templateRef:
+      kind: ClusterTemplate
+      name: devx-container-platform-workshop-deplyoment-template
+  selector:
+    devx-container-platform-workshop/workload-type: web
+---
+apiVersion: carto.run/v1alpha1
+kind: ClusterImageTemplate
+metadata:
+  name: devx-container-platform-workshop-image-template
+spec:
+  imagePath: .status.latestImage
+  lifecycle: mutable
+  params:
+  - default: {}
+    name: registry
+  ytt: |
+    #@ load("@ytt:data", "data")
+
+    #@ def image():
+    #@   return "/".join([
+    #@    data.values.params.registry.server,
+    #@    data.values.params.registry.repository,
+    #@    "-".join([
+    #@      data.values.workload.metadata.name,
+    #@      data.values.workload.metadata.namespace,
+    #@    ])
+    #@   ])
+    #@ end
+
+    ---
+    apiVersion: kpack.io/v1alpha2
+    kind: Image
+    metadata:
+      name: #@ data.values.workload.metadata.name
+    spec:
+      tag: #@ image()
+      source:
+        git:
+          revision: #@ data.values.workload.spec.source.git.ref.branch
+          url: #@ data.values.workload.spec.source.git.url
+      builder:
+        kind: ClusterBuilder
+        name: default
+      #@ if hasattr(data.values.workload.spec.build, "env"):
+      build:
+        env:
+        #@ for var in data.values.workload.spec.build.env:
+        - name: #@ var.name
+          #@ if/end hasattr(var, "value"):
+          value: #@ var.value
+          #@ if/end hasattr(var, "valueFrom"):
+          valueFrom: #@ var.valueFrom
+        #@ end
+      #@ end
+---
+apiVersion: carto.run/v1alpha1
+kind: ClusterTemplate
+metadata:
+  name: devx-container-platform-workshop-deplyoment-template
+spec:
+  lifecycle: mutable
+  template:
+    apiVersion: serving.knative.dev/v1
+    kind: Service
+    metadata:
+      name: $(workload.metadata.name)$
+    spec:
+      template:
+        spec:
+          containers:
+          - image: $(image)$

@@ -36,15 +36,15 @@ command: kn service create inclusion --image harbor.{{ ENV_TAP_INGRESS }}/tap-wo
 clear: true       
 ```
 
-To test our deployment send a request to the application after deployment is ready to serve traffic.
+To test our deployment click on the output of the following command after the deployment is ready to serve traffic.
 ```terminal:execute
-command: curl -L $(kn service describe inclusion -o url)
+command: kn service describe inclusion -o url
 clear: true
 ```
 
-In addition to the kn CLI, we can have a closer look by using the underlying Kubernetes custom resources.
+Let's also have a look at the Kubernetes custom resources.
 ```terminal:execute
-command: kubectl eksporter services.serving.knative.dev,configurations,routes
+command: kubectl eksporter services.serving.knative.dev
 clear: true
 ```
 
@@ -61,7 +61,8 @@ command: kn service update inclusion --annotation autoscaling.knative.dev/min-sc
 clear: true
 ```
 ```terminal:execute
-kubectl get pods
+command: kubectl get pods
+clear: true
 ```
 
 There are several other configuration options to tweak the autoscaler available which we will not cover here, and the Knative Pod Autoscaler isn't the only autoscaler you can use with Knative Serving, it's just the one you get by default. Out of the box, you can e.g. also use the Horizontal Pod Autoscaler (HPA), which is a subproject of the Kubernetes project. 
