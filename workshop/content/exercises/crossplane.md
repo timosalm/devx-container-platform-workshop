@@ -42,6 +42,9 @@ text: |
     name: inclusion-db-{{ session_namespace }}
   spec:
     storageGB: 1
+    writeConnectionSecretToRef:
+      name: inclusion-db-{{ session_namespace }}
+      namespace: {{ session_namespace }}
 ```
 ```terminal:execute
 command: kubectl apply -f ~/inclusion-db.yaml
