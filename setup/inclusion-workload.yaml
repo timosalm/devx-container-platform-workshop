@@ -1,0 +1,47 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: inclusion
+  namespace: default
+  annotations:
+    autoscaling.knative.dev/min-scale: "3"
+  labels:
+    app.kubernetes.io/part-of: inclusion
+    apps.tanzu.vmware.com/workload-type: web
+    apps.tanzu.vmware.com/has-tests: "true"
+    apis.apps.tanzu.vmware.com/register-api: "true"
+    apps.tanzu.vmware.com/auto-configure-actuators: "true"
+spec:
+  source:
+    git:
+      url: https://github.com/timosalm/emoji-inclusion.git
+      ref:
+        branch: main
+  build:
+    env:
+      - name: BP_JVM_VERSION
+        value: "17"
+  params:
+  - name: api_descriptor
+    value:
+      type: openapi
+      location:
+        path: "/v3/api-docs"
+      system: emoji-world
+      owner: team-vmware-tanzu-se
+      description: "A set of API endpoints to manage the resources within the inclusion app."
+  serviceClaims:
+    - name: db
+      ref:
+        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+        kind: ClassClaim
+        name: inclusion-db
+---
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClassClaim
+metadata:
+  name: inclusion-db
+  namespace: default
+spec:
+  classRef:
+    name: postgresql-unmanaged
