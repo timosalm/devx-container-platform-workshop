@@ -1,7 +1,7 @@
 To handle the more complex deployment and operations of modern applications, there is a need for a culture change towards **DevSecOps**, a buzzword for improved collaboration between developers, security, and operations teams.
 This collaboration should be **supported by automated processes**, like a self-service for developers to get access to the tools they need.
 
-The automated process of testing and deploying applications them into production is called **Continuous Integration** and **Continuous Delivery** (CI/CD). 
+The automated process of testing and deploying applications into production is called **Continuous Integration** and **Continuous Delivery** (CI/CD). 
 
 The CI/CD tools universe is always in flux, but most solutions pose the same challenges.  
 ![Popular CI/CD tools](../images/ci-cd-tools.png)
@@ -50,9 +50,9 @@ For the to-be-deployed application, the Workload custom resource also provides c
 
 Other configuration options are available for resource constraints (`spec.limits`, `spec.requests`) and environment variables for the build resources in the supply chain (`spec.build.env`) and to be passed to the running application (`spec.env`).
 
-Last but not least via (`.spec.params`), it's possible to override default values of the additional parameters that are used in the Supply Chain but not part of the official Workload specification.
+Last but not least, via (`.spec.params`), it's possible to override default values of the additional parameters that are used in the Supply Chain but not part of the official Workload specification.
 
-There are more configuration options available which you can have a look at in the detailed specification here:
+There are more configuration options available, which you can have a look at in the detailed specification here:
 ```dashboard:open-url
 url: https://cartographer.sh/docs/v0.7.0/reference/workload/
 ```
@@ -65,7 +65,7 @@ clear: true
 
 Another option would be to apply the Workload via **GitOps**.
 
-GitOps is an operational model that uses Git repositories as a single source of truth to version and store infrastructure configuration. The configuration is pulled continuously by tools like in this case [kapp-controller](https://carvel.dev/kapp-controller/) or [Flux](https://fluxcd.io) to ensure the infrastructure is correctly configured.
+GitOps is an operational model that uses Git repositories as a single source of truth to version and store infrastructure configuration. The configuration is pulled continuously by tools like [kapp-controller](https://carvel.dev/kapp-controller/) or [Flux](https://fluxcd.io) to ensure the infrastructure is correctly configured.
 
 The benefit of using this operational model for the Workload is that **developers don't need access to the Kubernetes cluster**, and once a change is triggered in Git by a developer, it's applied to the environment with little or no involvement from operations.
 
@@ -80,9 +80,9 @@ A `ClusterSupplyChain` is Cartographer's CRD to define a supply chain.
 file: ~/samples/supply-chain.yaml
 ```
 
-Any changes made to this custom resource in the cluster will immediately affect the path to production of the Workloads configured for it. Due to the asynchronous behavior of Cartographer only those steps that are affected by the change, and related outputs will be triggered. 
+Any changes made to this custom resource in the cluster will immediately affect the path to production of the Workloads configured for it. Due to the asynchronous behavior of Cartographer only those steps that are affected by the change and related outputs will be triggered. 
 
-The first part of our supply chain resource configures parameters via `.spec.params`. They follow a hierarchy and default values (`.spec.params[*].default`) can be overridden by the Workload's `.spec.params` in contrast to those set with `.spec.params[*].value`.
+The first part of our supply chain resource configures parameters via `.spec.params`. They follow a hierarchy, and default values (`.spec.params[*].default`) can be overridden by the Workload's `.spec.params` in contrast to those set with `.spec.params[*].value`.
 
 The `.spec.resources` section is an unordered list of steps (or resources) of our supply chain, even if they are ordered in this example for readability.
 

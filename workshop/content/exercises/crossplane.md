@@ -18,7 +18,7 @@ Crossplane introduces **multiple building blocks that enable you to provision, c
   command: kubectl get crds releases.helm.crossplane.io -o yaml | less
   clear: true
   ```
-- A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition`. It composes one or more managed resources into a higher level infrastructure unit. 
+- A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition`. It composes one or more managed resources into a higher-level infrastructure unit. 
   ```terminal:execute
   command: kubectl get xrd xpostgresqlinstances.bitnami.database.tanzu.vmware.com -o yaml
   clear: true
@@ -60,7 +60,7 @@ clear: true
 ```
 
 #### Consuming of provisioned services
-The [Service Binding Specification](https://github.com/k8s-service-bindings/spec) for Kubernetes and its [reference implementation](https://github.com/servicebinding/runtime) makes it as easy as possible to consume those dynamically provisioned backing services, **by automatically injecting credentials that are required for the connection to the backing service** into the containers of the running application.
+The [Service Binding Specification](https://github.com/k8s-service-bindings/spec) for Kubernetes and its [reference implementation](https://github.com/servicebinding/runtime) makes it as easy as possible to consume those dynamically provisioned backing services **by automatically injecting credentials that are required for the connection to the backing service** into the containers of the running application.
 
 ```editor:append-lines-to-file
 file: ~/service-binding.yaml
