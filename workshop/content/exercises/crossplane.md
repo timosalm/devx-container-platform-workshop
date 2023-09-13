@@ -15,10 +15,10 @@ clear: true
 ```
 - **Managed Resources** are Kubernetes custom resources that represent infrastructure primitives. 
 ```terminal:execute
-command: kubectl get crds releases.helm.crossplane.io -o yaml
+command: kubectl get crds releases.helm.crossplane.io -o yaml | less
 clear: true
 ```
-- A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition``. It composes one or more managed resources into a higher level infrastructure unit. 
+- A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition`. It composes one or more managed resources into a higher level infrastructure unit. 
 ```terminal:execute
 command: kubectl get xrd
 clear: true
@@ -32,11 +32,24 @@ clear: true
 In our cluster, there are several backing services available to be consumed based on [Bitnami](https://bitnami.com) Helm charts.
 
 Let's provision a PostgreSQL database for our application.
-```editor:open-file
-file: ~/samples/inclusion-db.yaml
+```editor:append-lines-to-file
+file: ~/inclusion-db.yaml
+text: |
+  apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
+  kind: XPostgreSQLInstance
+  metadata:
+    name: inclusion-db-{{ session_namespace }}
+  spec:
+    compositionRef:
+      name: xpostgresqlinstances.bitnami.database.tanzu.vmware.com
+    compositionSelector:
+      matchLabels:
+        provider: bitnami
+        type: postgresql
+    storageGB: 1
 ```
 ```terminal:execute
-command: kubectl apply -f ~/samples/inclusion-db.yaml
+command: kubectl apply -f ~/inclusion-db.yaml
 clear: true
 ```
 

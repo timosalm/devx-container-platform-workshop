@@ -41,9 +41,6 @@ spec:
         namespace: $(session_namespace)
       rules:
       - apiGroups: [""]
-        resources: ["pods/portforward","pods/exec"]
-        verbs: ['*']
-      - apiGroups: [""]
         resources: [namespaces, serviceaccounts]
         verbs: [patch]
       - apiGroups: [kpack.io]
@@ -87,7 +84,7 @@ spec:
         verbs: ["get", "watch", "list"]
       - apiGroups: [bitnami.database.tanzu.vmware.com]
         resources: ["xpostgresqlinstances"]
-        verbs: ["get", "watch", "list"]
+        verbs: ["get", "watch", "list", "create", "patch"]
     - apiVersion: rbac.authorization.k8s.io/v1
       kind: ClusterRoleBinding
       metadata:
@@ -100,3 +97,28 @@ spec:
       - kind: Group
         name: system:serviceaccounts:$(workshop_namespace)
         apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-session
+        namespace: inclusion-db-$(session_namespace)
+      rules:
+      - apiGroups: [""]
+        resources: [secrets]
+        verbs: [get, list]
+      - apiGroups: [kubernetes.crossplane.io]
+        resources: [objects]
+        verbs: [get, list]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-session-rb
+        namespace: inclusion-db-$(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-session
+      subjects:
+        - kind: ServiceAccount
+          namespace: $(workshop_namespace)
+          name: $(service_account)
