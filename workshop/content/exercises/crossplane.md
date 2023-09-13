@@ -47,5 +47,43 @@ text: |
 command: kubectl apply -f ~/inclusion-db.yaml
 clear: true
 ```
+```terminal:execute
+command: kubectl get XPostgreSQLInstance inclusion-db-{{ session_namespace }} -o yaml
+clear: true
+```
+```terminal:execute
+command: kubectl eksporter secret inclusion-db-{{ session_namespace }} -n inclusion-db-{{ session_namespace }}
+clear: true
+```
 
+#### Consuming of provisioned services
 The [Service Binding Specification](https://github.com/k8s-service-bindings/spec) for Kubernetes and its [reference implementation](https://github.com/servicebinding/runtime) makes it as easy as possible to consume those dynamically provisioned backing services, **by automatically injecting credentials that are required for the connection to the backing service** into the containers of the running application.
+
+```editor:append-lines-to-file
+file: ~/service-binding.yaml
+description: Create Service Binding configuration
+text: |
+  apiVersion: servicebinding.io/v1beta1
+  kind: ServiceBinding
+  metadata:
+    name: inclusion-db-binding
+  spec:
+    name: db
+    service:
+      apiVersion: v1
+      kind: Secret
+      name: inclusion-db-{{ session_namespace }}
+    workload:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: inclusion-wkld
+```
+```terminal:execute
+command: kubectl apply -f ~/service-binding.yaml
+clear: true
+```
+
+```terminal:execute
+command: kn service describe inclusion-wkld -o url
+clear: true
+```

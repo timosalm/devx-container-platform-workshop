@@ -3,7 +3,7 @@
 apiVersion: training.educates.dev/v1beta1
 kind: Workshop
 metadata:
-  name: devx-container-platform-workshop
+  name: devx-platform
 spec:
   title: Closing the Developer Experience Gap of Your Container Platforms
   description: A workshop that demonstrates how get started in building an application-aware platform that abstracts away all infrastructure specifics and fosters developer productivity.
@@ -97,3 +97,51 @@ spec:
       - kind: Group
         name: system:serviceaccounts:$(workshop_namespace)
         apiGroup: rbac.authorization.k8s.io
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: inclusion-db-$(session_namespace)
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-session
+        namespace: inclusion-db-$(session_namespace)
+      rules:
+      - apiGroups: [""]
+        resources: [secrets]
+        verbs: [get, list]
+      - apiGroups: [kubernetes.crossplane.io]
+        resources: [objects]
+        verbs: [get, list]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-session-rb
+        namespace: inclusion-db-$(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-session
+      subjects:
+        - kind: ServiceAccount
+          namespace: $(workshop_namespace)
+          name: $(service_account)
+    - apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
+      kind: XPostgreSQLInstance
+      metadata:
+        name: inclusion-db-$(session_namespace)
+      spec:
+        storageGB: 1
+    - apiVersion: secretgen.carvel.dev/v1alpha1
+      kind: SecretExport
+      metadata:
+        name: inclusion-db-$(session_namespace)
+        namespace: inclusion-db-$(session_namespace)
+      spec:
+        toNamespace: $(session_namespace)
+    - apiVersion: secretgen.carvel.dev/v1alpha1
+      kind: SecretImport
+      metadata:
+        name: inclusion-db-$(session_namespace)
+      spec:
+        fromNamespace: inclusion-db-$(session_namespace)

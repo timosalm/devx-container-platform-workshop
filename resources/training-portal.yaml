@@ -1,13 +1,16 @@
 apiVersion: training.educates.dev/v1beta1
 kind: TrainingPortal
 metadata:
-  name: devx-container-platform-workshop
+  name: devx-platform
 spec:
   portal:
+    password: hello-tanzu
+    registration:
+      type: anonymous
     updates:
       workshop: true
   workshops:
-  - name: devx-container-platform-workshop
+  - name: devx-platform
     capacity: 30
     expires: 4h
     orphaned: 30m
