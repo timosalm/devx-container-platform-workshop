@@ -89,6 +89,7 @@ spec:
     spec:
       template:
         metadata:
+          labels: $(workload.metadata.labels)$
           annotations: $(workload.metadata.annotations)$
         spec:
           containers:
