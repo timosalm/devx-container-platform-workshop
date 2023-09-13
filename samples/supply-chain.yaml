@@ -52,6 +52,7 @@ spec:
     kind: Image
     metadata:
       name: #@ data.values.workload.metadata.name
+      labels: #@ data.values.workload.metadata.labels
     spec:
       tag: #@ image()
       source:
@@ -83,6 +84,7 @@ spec:
     apiVersion: serving.knative.dev/v1
     kind: Service
     metadata:
+      labels: $(workload.metadata.labels)$
       name: $(workload.metadata.name)$
     spec:
       template:
