@@ -18,17 +18,14 @@ Crossplane introduces **multiple building blocks that enable you to provision, c
   command: kubectl get crds releases.helm.crossplane.io -o yaml | less
   clear: true
   ```
-  ```terminal:interrupt
-  session: 1
-  ```
 - A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition`. It composes one or more managed resources into a higher level infrastructure unit. 
   ```terminal:execute
-  command: kubectl get xrd
+  command: kubectl get xrd xpostgresqlinstances.bitnami.database.tanzu.vmware.com -o yaml
   clear: true
   ```
   The `Composition` template defines how to create resources.
   ```terminal:execute
-  command: kubectl get composition
+  command: kubectl get composition xpostgresqlinstances.bitnami.database.tanzu.vmware.com -o yaml | less
   clear: true
   ```
 
@@ -37,18 +34,13 @@ In our cluster, there are several backing services available to be consumed base
 Let's provision a PostgreSQL database for our application.
 ```editor:append-lines-to-file
 file: ~/inclusion-db.yaml
+description: Create PostgreSQL database resource configuration
 text: |
   apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
   kind: XPostgreSQLInstance
   metadata:
     name: inclusion-db-{{ session_namespace }}
   spec:
-    compositionRef:
-      name: xpostgresqlinstances.bitnami.database.tanzu.vmware.com
-    compositionSelector:
-      matchLabels:
-        provider: bitnami
-        type: postgresql
     storageGB: 1
 ```
 ```terminal:execute
