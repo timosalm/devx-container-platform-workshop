@@ -9,25 +9,28 @@ Crossplane introduces **multiple building blocks that enable you to provision, c
 
 - **Packages** allow Crossplane to be extended to include new functionality. This typically looks like bundling a set of Kubernetes CRDs and controllers that represent and manage external infrastructure (i.e. a provider)
 - **Providers** are packages that enable Crossplane to provision infrastructure on an external service. They bring CRDs (i.e. managed resources) that map one-to-one to external infrastructure resources, as well as controllers to manage the life-cycle of those resources.
-```terminal:execute
-command: kubectl get providers
-clear: true
-```
+  ```terminal:execute
+  command: kubectl get providers
+  clear: true
+  ```
 - **Managed Resources** are Kubernetes custom resources that represent infrastructure primitives. 
-```terminal:execute
-command: kubectl get crds releases.helm.crossplane.io -o yaml | less
-clear: true
-```
+  ```terminal:execute
+  command: kubectl get crds releases.helm.crossplane.io -o yaml | less
+  clear: true
+  ```
+  ```terminal:interrupt
+  session: 1
+  ```
 - A **composite resource (XR)** is a special kind of custom resource that is defined by a `CompositeResourceDefinition`. It composes one or more managed resources into a higher level infrastructure unit. 
-```terminal:execute
-command: kubectl get xrd
-clear: true
-```
-The `Composition` template defines how to create resources.
-```terminal:execute
-command: kubectl get composition
-clear: true
-```
+  ```terminal:execute
+  command: kubectl get xrd
+  clear: true
+  ```
+  The `Composition` template defines how to create resources.
+  ```terminal:execute
+  command: kubectl get composition
+  clear: true
+  ```
 
 In our cluster, there are several backing services available to be consumed based on [Bitnami](https://bitnami.com) Helm charts.
 
