@@ -9,7 +9,7 @@ As you can see, in general, it is relatively easy and requires little effort to 
 ![](../images/simple-vs-optimized-dockerfile.png)
 
 To improve container image creation, **Buildpacks** were conceived by Heroku in 2011. Since then, they have been adopted by Cloud Foundry and other PaaS.
-The new generation of buildpacks, the [Cloud Native Buildpacks](https://buildpacks.io), is an incubating project in the CNCF which was initiated by Pivotal (now part of VMware) and Heroku in 2018.
+The new generation of buildpacks, the [Cloud Native Buildpacks](https://buildpacks.io), is an incubating project in the CNCF, which was initiated by Pivotal (now part of VMware) and Heroku in 2018.
 
 Cloud Native Buildpacks (CNBs) detect what is needed to compile and run an application based on the application's source code. 
 The application is then compiled and packaged in a container image with best practices in mind by the appropriate buildpack.
@@ -18,7 +18,7 @@ The biggest benefits of CNBs are increased security, minimized risk, and increas
 
 With all the benefits of Cloud Native Buildpacks, one of the **biggest challenges with container images still is to keep the operating system, used libraries, etc. up-to-date** in order to minimize attack vectors by CVEs.
 
-With [kpack](https://github.com/buildpacks-community/kpack), it's possible **automatically recreate and push an updated container image to the target registry if there is a new version of the buildpack or the base operating system available** (e.g. due to a CVE).
+With [kpack](https://github.com/buildpacks-community/kpack), it's possible to **automatically recreate and push an updated container image to the target registry if there is a new version of the buildpack or the base operating system available** (e.g. due to a CVE).
 
 With the [kp CLI](https://github.com/buildpacks-community/kpack-cli) it's possible to interact with kpack in a human-friendly way. 
 
@@ -45,7 +45,7 @@ If we have a look at the resource created by the kp CLI command, we can see that
 command: kubectl eksporter image.kpack.io inclusion
 clear: true
 ```
-A **Builder** uses a **Store**, that provides a collection of buildpacks, and a **Stack**, which provides the base images.
+A **Builder** uses a **Store**, which provides a collection of buildpacks, and a **Stack**, which provides the base images.
 ```terminal:execute
 command: kp clusterbuilder list
 clear: true
@@ -54,7 +54,7 @@ clear: true
 command: kp clusterbuilder status default
 clear: true
 ```
-In addition to to the cluster scoped Builder resource, there is also a namespace scoped equivalent available.
+In addition to the cluster-scoped Builder resource, there is also a namespace-scoped equivalent available.
 
 Let's have a closer look at our image build.
 ```terminal:execute

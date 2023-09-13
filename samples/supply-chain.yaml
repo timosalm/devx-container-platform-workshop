@@ -86,6 +86,8 @@ spec:
       name: $(workload.metadata.name)$
     spec:
       template:
+        metadata:
+          annotations: $(workload.metadata.annotations)$
         spec:
           containers:
           - image: $(image)$

@@ -1,4 +1,4 @@
-To deploy our application in a Kubernetes cluster with minimal configuration, we usually have to create a *Deployment*, and to expose it a *Service*, and an *Ingress* resource.
+To deploy our application in a Kubernetes cluster with minimal configuration, we usually have to create a *Deployment*, and expose it with a *Service*, and an *Ingress* resource.
 
 **Knative** simplifies deploying and operating microservices on Kubernetes. It provides a set of capabilities that enable developers to leverage the power of Kubernetes for **Serverless** use cases without first having to master the Kubernetes API.
 
@@ -9,7 +9,7 @@ Before we have a closer look at Knative, let's get a common understanding of wha
 
 ##### Knative
 
-Knative is an open source community project that provides a simple, consistent layer over Kubernetes that solves common problems of deploying software, connecting disparate systems together, upgrading software, observing software, routing traffic, and scaling automatically. 
+Knative is an open-source community project that provides a simple, consistent layer over Kubernetes that solves common problems of deploying software, connecting disparate systems together, upgrading software, observing software, routing traffic, and scaling automatically. 
 
 The major subprojects of Knative are *Serving*, *Eventing*, and *Functions*.
 - **Serving** is responsible for deploying, upgrading, routing, and scaling. 
@@ -24,7 +24,7 @@ Knative Serving defines four objects that are used to define and control how a s
 **Configuration** is the statement of what the running system should look like. You provide details about the desired container image, environment variables, and the like. Knative converts this information into lower-level Kubernetes concepts like *Deployments*. In fact, those of you with some Kubernetes familiarity might be wondering what Knative is adding. After all, you can just create and submit a *Deployment* yourself, no need to use another component for that.
 
 Which takes us to **Revisions**. These are snapshots of a *Configuration*. Each time that you change a *Configuration*, Knative first creates a *Revision*, and in fact, it is the *Revision* that is converted into lower-level primitives.
-It's the ability to selectively target traffic that makes *Revisions* a necessity. In vanilla Kubernetes, you can roll forward and can roll back, but you can't do so with traffic. You can only do it with instances of the Service.
+It's the ability to selectively target traffic that makes *Revisions* a necessity. In vanilla Kubernetes, you can roll forward and roll back, but you can't do so with traffic. You can only do it with instances of the Service.
 
 A **Route** maps a network endpoint to one or more *Revisions*. You can manage the traffic in several ways, including fractional traffic and named routes.
 
@@ -65,6 +65,6 @@ command: kubectl get pods
 clear: true
 ```
 
-There are several other configuration options to tweak the autoscaler available which we will not cover here, and the Knative Pod Autoscaler isn't the only autoscaler you can use with Knative Serving, it's just the one you get by default. Out of the box, you can e.g. also use the Horizontal Pod Autoscaler (HPA), which is a subproject of the Kubernetes project. 
+There are several other configuration options to tweak the autoscaler available, which we will not cover here, and the Knative Pod Autoscaler isn't the only autoscaler you can use with Knative Serving, it's just the one you get by default. Out of the box, you can e.g. also use the Horizontal Pod Autoscaler (HPA), which is a subproject of the Kubernetes project. 
 
 

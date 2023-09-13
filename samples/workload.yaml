@@ -3,7 +3,7 @@ kind: Workload
 metadata:
   name: inclusion-wkld
   annotations:
-    autoscaling.knative.dev/min-scale: "1"
+    autoscaling.knative.dev/min-scale: "2"
   labels:
     app.kubernetes.io/part-of: inclusion
     devx-container-platform-workshop/workload-type: web
