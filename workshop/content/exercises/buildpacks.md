@@ -36,7 +36,7 @@ clear: true
 Let's now create an Image resource for our demo application by specifying the Git repository containing the source code and the container image tag.
 ```terminal:execute
 command: |
-  kp image create inclusion --git https://github.com/timosalm/emoji-inclusion --tag harbor.{{ ENV_TAP_INGRESS }}/tap-workshop-examples/inclusion-{{ session_namespace }} --env BP_JVM_VERSION=17
+  kp image create inclusion --git https://github.com/timosalm/emoji-inclusion --tag {{ registry_host }}/inclusion --env BP_JVM_VERSION=17
 clear: false
 ```
 

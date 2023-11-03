@@ -32,7 +32,7 @@ A **Service** combines a *Configuration* and a *Route*. This compounding makes c
 
 Let's use the **kn CLI** for Knative, to create a Knative Serving Service for our application.
 ```terminal:execute
-command: kn service create inclusion --image harbor.{{ ENV_TAP_INGRESS }}/tap-workshop-examples/inclusion-{{ session_namespace }}
+command: kn service create inclusion --image {{ registry_host }}/inclusion
 clear: true       
 ```
 
