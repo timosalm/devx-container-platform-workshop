@@ -1,7 +1,3 @@
-```terminal:interrupt
-autostart: true
-hidden: true
-```
 For a solid developer experience, it's also necessary to provide a developer portal that provides a central location in which you can view dependencies, relationships, technical documentation, and even service status.
 
 [Backstage](https://backstage.io) is an open-source platform for building developer portals based on [React](https://react.dev).

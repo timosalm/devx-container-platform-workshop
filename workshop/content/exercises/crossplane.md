@@ -1,7 +1,3 @@
-```terminal:interrupt
-autostart: true
-hidden: true
-```
 The ability to efficiently provision and manage backing services, such as databases, queues, and caches, is critical for modern applications.
 
 [Crossplane](https://crossplane.io) is a powerful open-source project designed to streamline the **dynamic provisioning of these essential services**. 

@@ -1,7 +1,3 @@
-```terminal:interrupt
-autostart: true
-hidden: true
-```
 To deploy our application in a Kubernetes cluster with minimal configuration, we usually have to create a *Deployment*, and expose it with a *Service*, and an *Ingress* resource.
 
 **Knative** simplifies deploying and operating microservices on Kubernetes. It provides a set of capabilities that enable developers to leverage the power of Kubernetes for **Serverless** use cases without first having to master the Kubernetes API.
