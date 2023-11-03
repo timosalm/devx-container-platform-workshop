@@ -137,12 +137,3 @@ spec:
         - kind: ServiceAccount
           namespace: $(workshop_namespace)
           name: $(service_account)
-    - apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
-      kind: XPostgreSQLInstance
-      metadata:
-        name: inclusion-db-$(session_namespace)
-      spec:
-        storageGB: 1
-        writeConnectionSecretToRef:
-          name: inclusion-db-$(session_namespace)
-          namespace: $(session_namespace)
