@@ -5,11 +5,6 @@ metadata:
 spec:
   resources:
   - name: image-builder
-    params:
-    - name: registry
-      value:
-        repository: tap-workshop-examples
-        server: harbor.main.emea.end2end.link
     templateRef:
       kind: ClusterImageTemplate
       name: devx-container-platform-workshop-image-template
