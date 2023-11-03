@@ -61,6 +61,7 @@ command: kn service update inclusion --annotation autoscaling.knative.dev/min-sc
 clear: true
 ```
 ```terminal:execute
+session: 2
 command: kubectl get pods
 clear: true
 ```
